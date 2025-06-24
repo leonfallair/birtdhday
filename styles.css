@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  background: #fce4ec;
+  font-family: 'Comic Sans MS', cursive;
+  overflow: hidden;
+  text-align: center;
+}
+
+.message {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2em;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #e91e63;
+}
+
+h1 {
+  color: #e91e63;
+  font-size: 2em;
+}
