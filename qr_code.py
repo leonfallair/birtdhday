@@ -1,6 +1,6 @@
 import qrcode
 
-url = "https://deinname.github.io/birthday-nina"
+url = "https://leonfallair.github.io/birtdhday/"
 
 img = qrcode.make(url)
 img.save("geburtstag_nina_qrcode.png")
