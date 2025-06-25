@@ -16,7 +16,7 @@ for (let i = 0; i < 20; i++) {
         y: canvasHeart.height + Math.random() * 300,
         radius: 20 + Math.random() * 20,
         color: colors[Math.floor(Math.random() * colors.length)],
-        speed: 0.5 + Math.random(),
+        speed: 6 + Math.random(),
     });
 }
 
@@ -57,12 +57,17 @@ function drawHeart(x, y, size) {
     ctxHeart.restore();
 }
 
-function animate() {
+let lastTime = performance.now();
+
+function animate(now = performance.now()) {
+    const deltaTime = (now - lastTime) / 16.67; // 16.67ms ≈ 60fps
+    lastTime = now;
+
     ctxHeart.clearRect(0, 0, canvasHeart.width, canvasHeart.height);
 
     // Animate balloons
     balloons.forEach(b => {
-        b.y -= b.speed;
+        b.y -= b.speed * deltaTime;
         if (b.y < -50) b.y = canvasHeart.height + 50;
         drawBalloon(b);
     });
@@ -70,7 +75,7 @@ function animate() {
     // Animate heart
     if (scale >= 1.2) grow = false;
     if (scale <= 0.9) grow = true;
-    scale += grow ? 0.01 : -0.01;
+    scale += (grow ? 0.01 : -0.01) * deltaTime;
     drawHeart(canvasHeart.width / 2, canvasHeart.height / 2 - 100, 50 * scale);
 
     requestAnimationFrame(animate);
@@ -93,7 +98,7 @@ const ctxElephant = canvasElephant.getContext('2d');
 
 let elephantX = -200;
 let elephantY = canvasElephant.height - 180;
-let elephantSpeed = 2;
+let elephantSpeed = 6;
 
 function drawElephant(x, y, scale = 1) {
     ctxElephant.save();
@@ -144,10 +149,15 @@ function drawElephant(x, y, scale = 1) {
     ctxElephant.restore();
 }
 
-function animateElephant() {
+let lastElephantTime = performance.now();
+
+function animateElephant(now = performance.now()) {
+    const deltaTime = (now - lastElephantTime) / 16.67;
+    lastElephantTime = now;
+
     ctxElephant.clearRect(0, 0, canvasElephant.width, canvasElephant.height);
     drawElephant(elephantX, elephantY, 1.1);
-    elephantX += elephantSpeed;
+    elephantX += elephantSpeed * deltaTime;
     if (elephantX > canvasElephant.width + 100) elephantX = -200;
     requestAnimationFrame(animateElephant);
 }
